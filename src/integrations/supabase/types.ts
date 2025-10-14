@@ -14,7 +14,112 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      funnel_stages: {
+        Row: {
+          created_at: string
+          funnel_id: string
+          id: string
+          lead_count: number
+          source: string | null
+          stage_name: string
+          total_value: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          funnel_id: string
+          id?: string
+          lead_count?: number
+          source?: string | null
+          stage_name: string
+          total_value?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          funnel_id?: string
+          id?: string
+          lead_count?: number
+          source?: string | null
+          stage_name?: string
+          total_value?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "funnel_stages_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "funnels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      funnels: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reports: {
+        Row: {
+          average_ticket: number | null
+          closed_revenue: number | null
+          conversion_rate: number | null
+          created_at: string
+          funnel_id: string
+          id: string
+          report_date: string
+          total_pipeline: number | null
+        }
+        Insert: {
+          average_ticket?: number | null
+          closed_revenue?: number | null
+          conversion_rate?: number | null
+          created_at?: string
+          funnel_id: string
+          id?: string
+          report_date?: string
+          total_pipeline?: number | null
+        }
+        Update: {
+          average_ticket?: number | null
+          closed_revenue?: number | null
+          conversion_rate?: number | null
+          created_at?: string
+          funnel_id?: string
+          id?: string
+          report_date?: string
+          total_pipeline?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reports_funnel_id_fkey"
+            columns: ["funnel_id"]
+            isOneToOne: false
+            referencedRelation: "funnels"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
