@@ -108,7 +108,7 @@ export default function FunnelDetails() {
       // 4. Se todas as promises foram resolvidas com sucesso:
       toast({
         title: 'Atualização concluída com sucesso!',
-        description: 'Todos os 4 webhooks foram disparados.',
+        description: 'Todos os funis foram atualizados.',
       });
 
     } catch (error) {
