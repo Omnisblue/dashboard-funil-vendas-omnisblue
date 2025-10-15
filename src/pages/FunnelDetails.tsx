@@ -68,6 +68,29 @@ export default function FunnelDetails() {
     }
   };
 
+  const handleUpdateData = async () => {
+    const url = 'https://api.awrea.com.br/webhook/atualizar_dados';
+    try {
+      // Tenta POST primeiro (padrão para webhooks). Se falhar, tenta GET.
+      let resp = await fetch(url, { method: 'POST' });
+      if (!resp.ok) {
+        resp = await fetch(url); // fallback GET
+      }
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+      toast({
+        title: 'Atualização iniciada',
+        description: 'Webhook disparado com sucesso.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Erro ao atualizar',
+        description: 'Não foi possível disparar o webhook.',
+        variant: 'destructive',
+      });
+    }
+  };
+
   const renderFunnelColumns = () => {
     const groupedBySource = stages.reduce((acc, stage) => {
       const source = stage.source || 'default';
@@ -81,43 +104,98 @@ export default function FunnelDetails() {
     switch (type) {
       case 'eventos':
         return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FunnelColumn 
-              title="Evento A" 
-              stages={groupedBySource['evento_a'] || []} 
-              color="bg-blue"
-            />
-            <FunnelColumn 
-              title="Evento B" 
-              stages={groupedBySource['evento_b'] || []} 
-              color="bg-cyan"
-            />
-            <FunnelColumn 
-              title="Total" 
-              stages={calculateTotalStages(stages)} 
-              color="bg-primary"
-            />
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Primeiro: LEC 2025 */}
+              <div className="space-y-4">
+                <FunnelColumn
+                  title="LEC 2025"
+                  stages={groupedBySource['lec_25'] || groupedBySource['evento_a'] || []}
+                  color="bg-gradient-to-b from-[#D0006F] to-[#99004F]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable
+                  stages={groupedBySource['lec_25'] || groupedBySource['evento_a'] || []}
+                  title="Receita Esperada - LEC 2025"
+                  color="bg-[#99004F]"
+                />
+              </div>
+              {/* Segundo: EXPO 2025 */}
+              <div className="space-y-4">
+                <FunnelColumn
+                  title="EXPO 2025"
+                  stages={groupedBySource['expo_25'] || groupedBySource['evento_b'] || []}
+                  color="bg-gradient-to-b from-[#0047CC] to-[#03045E]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable
+                  stages={groupedBySource['expo_25'] || groupedBySource['evento_b'] || []}
+                  title="Receita Esperada - EXPO 2025"
+                  color="bg-[#03045E]"
+                />
+              </div>
+              {/* Terceiro: Total dos Eventos */}
+              <div className="space-y-4">
+                <FunnelColumn
+                  title="Total dos Eventos"
+                  stages={calculateTotalStages(stages)}
+                  color="bg-gradient-to-b from-[#6A00B6] to-[#43007E]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable
+                  stages={calculateTotalStages(stages)}
+                  title="Receita Esperada - Total"
+                  color="bg-[#43007E]"
+                />
+              </div>
+            </div>
           </div>
         );
 
       case 'ads':
         return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <FunnelColumn 
-              title="Meta" 
-              stages={groupedBySource['meta'] || []} 
-              color="bg-blue"
-            />
-            <FunnelColumn 
-              title="Google" 
-              stages={groupedBySource['google'] || []} 
-              color="bg-cyan"
-            />
-            <FunnelColumn 
-              title="Total" 
-              stages={calculateTotalStages(stages)} 
-              color="bg-primary"
-            />
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-4">
+                <FunnelColumn 
+                  title="Meta" 
+                  stages={groupedBySource['meta'] || []} 
+                  color="bg-gradient-to-b from-[#00B5D8] to-[#0891B2]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable 
+                  stages={groupedBySource['meta'] || []} 
+                  title="Receita Esperada - Meta" 
+                  color="bg-cyan"
+                />
+              </div>
+              <div className="space-y-4">
+                <FunnelColumn 
+                  title="Google" 
+                  stages={groupedBySource['google'] || []} 
+                  color="bg-gradient-to-b from-[#0047CC] to-[#03045E]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable 
+                  stages={groupedBySource['google'] || []} 
+                  title="Receita Esperada - Google" 
+                  color="bg-[#03045E]"
+                />
+              </div>
+              <div className="space-y-4">
+                <FunnelColumn 
+                  title="Total" 
+                  stages={calculateTotalStages(stages)} 
+                  color="bg-gradient-to-b from-[#3B82F6] to-[#1E40AF]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable 
+                  stages={calculateTotalStages(stages)} 
+                  title="Receita Esperada - ADS" 
+                  color="bg-blue"
+                />
+              </div>
+            </div>
           </div>
         );
 
@@ -125,39 +203,99 @@ export default function FunnelDetails() {
         return (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <FunnelColumn 
-                title="Cold E-mail" 
-                stages={groupedBySource['cold_email'] || []} 
-                color="bg-blue"
-              />
-              <FunnelColumn 
-                title="Cold Call" 
-                stages={groupedBySource['cold_call'] || []} 
-                color="bg-cyan"
-              />
-              <FunnelColumn 
-                title="LinkedIn" 
-                stages={groupedBySource['linkedin'] || []} 
-                color="bg-violet"
-              />
+              <div className="space-y-4">
+                <FunnelColumn 
+                  title="Cold E-mail" 
+                  stages={groupedBySource['cold_email'] || []} 
+                  color="bg-gradient-to-b from-[#6A00B6] to-[#43007E]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable 
+                  stages={groupedBySource['cold_email'] || []} 
+                  title="Receita Esperada - Cold E-mail" 
+                  color="bg-purple"
+                />
+              </div>
+              <div className="space-y-4">
+                <FunnelColumn 
+                  title="Cold Call" 
+                  stages={groupedBySource['cold_call'] || []} 
+                  color="bg-gradient-to-b from-[#7C3AED] to-[#5B21B6]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable 
+                  stages={groupedBySource['cold_call'] || []} 
+                  title="Receita Esperada - Cold Call" 
+                  color="bg-violet"
+                />
+              </div>
+              <div className="space-y-4">
+                <FunnelColumn 
+                  title="LinkedIn" 
+                  stages={groupedBySource['linkedin'] || []} 
+                  color="bg-gradient-to-b from-[#D0006F] to-[#99004F]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable 
+                  stages={groupedBySource['linkedin'] || []} 
+                  title="Receita Esperada - LinkedIn" 
+                  color="bg-magenta"
+                />
+              </div>
             </div>
-            <FunnelColumn 
-              title="Total Outbound" 
-              stages={calculateTotalStages(stages)} 
-              color="bg-primary"
-            />
+            <div className="grid grid-cols-1 gap-6">
+              <div className="space-y-4">
+                <FunnelColumn 
+                  title="Total Outbound" 
+                  stages={calculateTotalStages(stages)} 
+                  color="bg-gradient-to-b from-[#6A00B6] to-[#43007E]"
+                  showTotalLeads
+                />
+                <FinancialSummaryTable 
+                  stages={calculateTotalStages(stages)} 
+                  title="Receita Esperada - Outbound" 
+                  color="bg-purple"
+                />
+              </div>
+            </div>
           </div>
         );
 
       case 'parceiros':
+        return (
+          <div className="grid grid-cols-1 gap-6">
+            <div className="space-y-4">
+              <FunnelColumn 
+                title={funnel.name} 
+                stages={stages} 
+                color="bg-gradient-to-b from-[#D0006F] to-[#99004F]"
+                showTotalLeads
+              />
+              <FinancialSummaryTable 
+                stages={calculateTotalStages(stages)} 
+                title={`Receita Esperada - ${funnel.name}`} 
+                color="bg-magenta"
+              />
+            </div>
+          </div>
+        );
+
       case 'indicados':
         return (
-          <div className="max-w-md mx-auto">
-            <FunnelColumn 
-              title={funnel.name} 
-              stages={stages} 
-              color="bg-primary"
-            />
+          <div className="grid grid-cols-1 gap-6">
+            <div className="space-y-4">
+              <FunnelColumn 
+                title={funnel.name} 
+                stages={stages} 
+                color="bg-gradient-to-b from-[#7C3AED] to-[#5B21B6]"
+                showTotalLeads
+              />
+              <FinancialSummaryTable 
+                stages={calculateTotalStages(stages)} 
+                title={`Receita Esperada - ${funnel.name}`} 
+                color="bg-violet"
+              />
+            </div>
           </div>
         );
 
@@ -165,6 +303,8 @@ export default function FunnelDetails() {
         return null;
     }
   };
+
+  
 
   const calculateTotalStages = (stages: typeof data.stages) => {
     const stageNames: StageName[] = [
@@ -193,21 +333,19 @@ export default function FunnelDetails() {
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full mx-auto">
         <DashboardHeader
           title={`Funil de Vendas - ${funnel.name}`}
           showBackButton
           onGenerateReport={handleGenerateReport}
+          onUpdateData={handleUpdateData}
         />
 
         <PerformanceMetrics {...metrics} />
 
         {renderFunnelColumns()}
 
-        <FinancialSummaryTable 
-          stages={calculateTotalStages(stages)} 
-          title={`Resumo Financeiro - ${funnel.name}`}
-        />
+        {/* Tabelas já renderizadas abaixo de cada funil no grid acima */}
       </div>
     </div>
   );

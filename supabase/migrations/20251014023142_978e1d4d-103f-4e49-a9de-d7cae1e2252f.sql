@@ -107,27 +107,27 @@ BEGIN
 
   -- Sample data for Eventos (Evento A)
   INSERT INTO public.funnel_stages (funnel_id, stage_name, lead_count, total_value, source) VALUES
-    (eventos_id, 'em_contato', 150, 0, 'evento_a'),
-    (eventos_id, 'reunioes', 120, 0, 'evento_a'),
-    (eventos_id, 'follow_up', 100, 0, 'evento_a'),
-    (eventos_id, 'propostas', 85, 0, 'evento_a'),
-    (eventos_id, 'negociacoes', 70, 1750000, 'evento_a'),
-    (eventos_id, 'contratos', 55, 1375000, 'evento_a'),
-    (eventos_id, 'contratos_assinados', 45, 1125000, 'evento_a'),
-    (eventos_id, 'oportunidades_perdidas', 25, 0, 'evento_a'),
-    (eventos_id, 'oportunidades_vencidas', 10, 0, 'evento_a');
+    (eventos_id, 'em_contato', 150, 0, 'expo_25'),
+    (eventos_id, 'reunioes', 120, 0, 'expo_25'),
+    (eventos_id, 'follow_up', 100, 0, 'expo_25'),
+    (eventos_id, 'propostas', 85, 0, 'expo_25'),
+    (eventos_id, 'negociacoes', 70, 1750000, 'expo_25'),
+    (eventos_id, 'contratos', 55, 1375000, 'expo_25'),
+    (eventos_id, 'contratos_assinados', 45, 1125000, 'expo_25'),
+    (eventos_id, 'oportunidades_perdidas', 25, 0, 'expo_25'),
+    (eventos_id, 'oportunidades_vencidas', 10, 0, 'expo_25');
 
   -- Sample data for Eventos (Evento B)
   INSERT INTO public.funnel_stages (funnel_id, stage_name, lead_count, total_value, source) VALUES
-    (eventos_id, 'em_contato', 130, 0, 'evento_b'),
-    (eventos_id, 'reunioes', 110, 0, 'evento_b'),
-    (eventos_id, 'follow_up', 90, 0, 'evento_b'),
-    (eventos_id, 'propostas', 75, 0, 'evento_b'),
-    (eventos_id, 'negociacoes', 60, 1500000, 'evento_b'),
-    (eventos_id, 'contratos', 48, 1200000, 'evento_b'),
-    (eventos_id, 'contratos_assinados', 40, 1000000, 'evento_b'),
-    (eventos_id, 'oportunidades_perdidas', 20, 0, 'evento_b'),
-    (eventos_id, 'oportunidades_vencidas', 8, 0, 'evento_b');
+    (eventos_id, 'em_contato', 130, 0, 'lec_25'),
+    (eventos_id, 'reunioes', 110, 0, 'lec_25'),
+    (eventos_id, 'follow_up', 90, 0, 'lec_25'),
+    (eventos_id, 'propostas', 75, 0, 'lec_25'),
+    (eventos_id, 'negociacoes', 60, 1500000, 'lec_25'),
+    (eventos_id, 'contratos', 48, 1200000, 'lec_25'), 
+    (eventos_id, 'contratos_assinados', 40, 1000000, 'lec_25'),
+    (eventos_id, 'oportunidades_perdidas', 20, 0, 'lec_25'),
+    (eventos_id, 'oportunidades_vencidas', 8, 0, 'lec_25');
 
   -- Sample data for ADS (Meta)
   INSERT INTO public.funnel_stages (funnel_id, stage_name, lead_count, total_value, source) VALUES

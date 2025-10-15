@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 236 91% 11%;
 
-    --primary: 214 100% 51%;
+    --primary: 221 99% 56%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 224 29% 94%;
@@ -26,7 +26,7 @@ All colors MUST be HSL.
     --muted: 224 29% 94%;
     --muted-foreground: 236 12% 45%;
 
-    --accent: 214 100% 51%;
+    --accent: 221 99% 56%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 340 82% 52%;
@@ -34,21 +34,21 @@ All colors MUST be HSL.
 
     --border: 224 21% 88%;
     --input: 224 21% 88%;
-    --ring: 214 100% 51%;
+    --ring: 221 99% 56%;
 
     --radius: 0.75rem;
 
     /* Custom colors from palette */
-    --navy: 236 91% 11%;
-    --dark-gray: 220 17% 11%;
-    --blue: 214 100% 51%;
-    --magenta: 340 82% 52%;
-    --purple: 278 88% 45%;
-    --royal-blue: 214 94% 41%;
-    --light-blue: 224 100% 94%;
-    --cyan: 196 93% 60%;
-    --pink: 337 99% 56%;
-    --violet: 278 90% 56%;
+    --navy: 239 94% 19%;
+    --dark-gray: 222 25% 10%;
+    --blue: 221 99% 56%;
+    --magenta: 328 93% 33%;
+    --purple: 280 91% 31%;
+    --royal-blue: 229 93% 41%;
+    --light-blue: 220 100% 95%;
+    --cyan: 201 92% 60%;
+    --pink: 334 99% 56%;
+    --violet: 277 99% 56%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -70,7 +70,7 @@ All colors MUST be HSL.
     --popover: 220 17% 11%;
     --popover-foreground: 224 100% 94%;
 
-    --primary: 214 100% 51%;
+    --primary: 221 99% 56%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 220 17% 20%;
@@ -79,7 +79,7 @@ All colors MUST be HSL.
     --muted: 220 17% 20%;
     --muted-foreground: 224 29% 65%;
 
-    --accent: 214 100% 51%;
+    --accent: 221 99% 56%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 340 82% 52%;
@@ -87,7 +87,7 @@ All colors MUST be HSL.
 
     --border: 220 17% 20%;
     --input: 220 17% 20%;
-    --ring: 214 100% 51%;
+    --ring: 221 99% 56%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;

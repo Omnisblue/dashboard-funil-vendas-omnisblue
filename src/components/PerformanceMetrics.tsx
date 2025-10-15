@@ -26,22 +26,22 @@ export function PerformanceMetrics({
     {
       label: 'Taxa de Conversão',
       value: `${conversionRate.toFixed(1)}%`,
-      color: 'text-blue',
+      color: 'text-[#03045E]',
     },
     {
       label: 'Receita Fechada',
       value: formatCurrency(closedRevenue),
-      color: 'text-blue',
+      color: 'text-[#03045E]',
     },
     {
       label: 'Pipeline Total',
       value: formatCurrency(totalPipeline),
-      color: 'text-blue',
+      color: 'text-[#03045E]',
     },
     {
       label: 'Ticket Médio',
       value: formatCurrency(averageTicket),
-      color: 'text-blue',
+      color: 'text-[#03045E]',
     },
   ];
 
@@ -50,7 +50,7 @@ export function PerformanceMetrics({
       <h2 className="text-xl font-semibold text-primary mb-4">Estatísticas de Performance</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {metrics.map((metric, index) => (
-          <Card key={index} className="bg-secondary">
+          <Card key={index} className="bg-white">
             <CardContent className="p-6">
               <p className={`text-3xl font-bold ${metric.color} mb-2`}>
                 {metric.value}

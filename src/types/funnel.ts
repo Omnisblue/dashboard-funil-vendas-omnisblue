@@ -57,6 +57,6 @@ export const FINANCIAL_STAGES: StageName[] = [
   'negociacoes',
   'contratos',
   'contratos_assinados',
-  'oportunidades_perdidas',
   'oportunidades_vencidas',
+  'oportunidades_perdidas',
 ];
