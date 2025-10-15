@@ -69,28 +69,58 @@ export default function FunnelDetails() {
   };
 
   const handleUpdateData = async () => {
-    const url = 'https://api.awrea.com.br/webhook/atualizar_dados';
-    try {
-      // Tenta POST primeiro (padrão para webhooks). Se falhar, tenta GET.
-      let resp = await fetch(url, { method: 'POST' });
-      if (!resp.ok) {
-        resp = await fetch(url); // fallback GET
-      }
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    // 1. Defina todas as URLs em um array
+    const webhookUrls = [
+      'https://api.awrea.com.br/webhook/atualizar_dados_evento_a',
+      'https://api.awrea.com.br/webhook/atualizar_dados_evento_a2',
+      'https://api.awrea.com.br/webhook/atualizar_dados_evento_b',
+      'https://api.awrea.com.br/webhook/atualizar_dados_evento_b2'
+    ];
 
-      toast({
-        title: 'Atualização iniciada',
-        description: 'Webhook disparado com sucesso.',
+    // Mostra um toast imediato para o usuário saber que a ação começou
+    toast({
+      title: 'Atualização iniciada',
+      description: 'Disparando os webhooks para buscar os dados mais recentes.',
+    });
+
+    try {
+      // 2. Mapeia cada URL para uma Promise de fetch
+      const requests = webhookUrls.map(async (url) => {
+        // A lógica de fallback (POST -> GET) é aplicada individualmente para cada URL
+        let response = await fetch(url, { method: 'POST' });
+        
+        if (!response.ok) {
+          // Se o POST falhar, tenta com GET
+          response = await fetch(url);
+        }
+
+        // Se ambos falharem, lança um erro que fará o Promise.all falhar
+        if (!response.ok) {
+          throw new Error(`Falha no webhook ${url} com status ${response.status}`);
+        }
+        
+        return response;
       });
+
+      // 3. Executa todas as Promises em paralelo e espera a conclusão de todas
+      await Promise.all(requests);
+
+      // 4. Se todas as promises foram resolvidas com sucesso:
+      toast({
+        title: 'Atualização concluída com sucesso!',
+        description: 'Todos os 4 webhooks foram disparados.',
+      });
+
     } catch (error) {
+      // 5. Se qualquer uma das requisições falhar, o catch será acionado
+      console.error("Erro ao disparar webhooks:", error);
       toast({
         title: 'Erro ao atualizar',
-        description: 'Não foi possível disparar o webhook.',
+        description: 'Não foi possível disparar um ou mais webhooks.',
         variant: 'destructive',
       });
     }
   };
-
   const renderFunnelColumns = () => {
     const groupedBySource = stages.reduce((acc, stage) => {
       const source = stage.source || 'default';
