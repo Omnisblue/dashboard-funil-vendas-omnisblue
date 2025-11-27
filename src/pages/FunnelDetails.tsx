@@ -71,10 +71,7 @@ export default function FunnelDetails() {
   const handleUpdateData = async () => {
     // 1. Defina todas as URLs em um array
     const webhookUrls = [
-      'https://webhook.omnisbluecompliance.com/webhook/atualizar_dados_evento_a',
-      'https://webhook.omnisbluecompliance.com/webhook/atualizar_dados_evento_a2',
-      'https://webhook.omnisbluecompliance.com/webhook/atualizar_dados_evento_b',
-      'https://webhook.omnisbluecompliance.com/webhook/atualizar_dados_evento_b2'
+      'https://webhook.omnisbluecompliance.com/webhook/atualizar_dados_evento_a'
     ];
 
     // Mostra um toast imediato para o usuário saber que a ação começou
