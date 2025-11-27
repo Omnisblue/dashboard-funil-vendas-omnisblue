@@ -34,7 +34,6 @@ export function FinancialSummaryTable({ stages, title = 'Resumo Financeiro', col
   );
 
   const orderedStageNames: StageName[] = [
-    'propostas',
     'negociacoes',
     'contratos',
     'contratos_assinados',
